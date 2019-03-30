@@ -1,0 +1,9 @@
+{
+  "name": "csgo-demo-parser",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "demofile": "^1.0.6"
+  }
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="node_modules/demofile/browser/bundle.js"></script>
+  </head>
+  <body>
+    <h3>Example on how the "demofile" module works in the browser</h3>
+    <h5>Load a .dem file:</h5>
+    <input type="file" id="picker" name="picker">
+
+    <script>
+      const input = document.querySelector('#picker')
+      const demoFile = new demofile.DemoFile();
+      const seen = {};
+
+      demoFile.stringTables.on('update', e => {
+        if (seen[e.table.name]) return;
+
+        seen[e.table.name] = 1;
+        console.log(e.table.name, e);
+      });
+
+      const readFile = file => {
+        const reader = new FileReader();
+
+        reader.onload = e => {
+          const arrayBuffer = e.target.result;
+  
+  
+          demoFile.parse(arrayBuffer);
+        }
+  
+        reader.readAsArrayBuffer(file);
+      }
+
+      input.addEventListener('change', () => {
+        const files = input.files;
+        readFile(files[0]);
+      });
+    </script>    
+  </body>
+</html>
